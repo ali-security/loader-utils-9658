@@ -258,6 +258,7 @@ describe('interpolateName()', () => {
       'should support regExp in options',
     ],
   ]);
+
   describe('redos interpolate', () => {
     // Setting timeout for all tests within this describe block
     it('should evaluate regex in less then 2 sec', () => {
