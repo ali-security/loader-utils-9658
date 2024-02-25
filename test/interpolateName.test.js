@@ -100,12 +100,6 @@ describe('interpolateName()', () => {
       'test content',
       'js/filenameWithoutExt.bin',
     ],
-    [
-      '/absolute/path/to/app/js/javascript.js',
-      '[E'.repeat(387300) + '[HASH]',
-      'test content',
-      '[E'.repeat(387300)+'9473fdd0d880a43c21b7778d34872157'
-    ]
   ].forEach((test) => {
     it('should interpolate ' + test[0] + ' ' + test[1], () => {
       const interpolatedName = loaderUtils.interpolateName(
@@ -264,4 +258,24 @@ describe('interpolateName()', () => {
       'should support regExp in options',
     ],
   ]);
+  describe('redos interpolate', () => {
+    // Setting timeout for all tests within this describe block
+    it('should evaluate regex in less then 2 sec', () => {
+      const poc = [
+        '/absolute/path/to/app/js/javascript.js',
+        '[E'.repeat(387300) + '[HASH]',
+        'test content',
+        '[E'.repeat(387300) + '9473fdd0d880a43c21b7778d34872157',
+      ];
+      const time = Date.now();
+      const interpolatedName = loaderUtils.interpolateName(
+        { resourcePath: poc[0] },
+        poc[1],
+        { content: poc[2] }
+      );
+      const time_cost = Date.now() - time;
+      expect(time_cost).toBeLessThan(2000);
+      expect(interpolatedName).toBe(poc[3]);
+    });
+  });
 });
