@@ -100,6 +100,12 @@ describe('interpolateName()', () => {
       'test content',
       'js/filenameWithoutExt.bin',
     ],
+    [
+      '/absolute/path/to/app/js/javascript.js',
+      '[E'.repeat(387300) + '[HASH]',
+      'test content',
+      '[E'.repeat(387300)+'9473fdd0d880a43c21b7778d34872157'
+    ]
   ].forEach((test) => {
     it('should interpolate ' + test[0] + ' ' + test[1], () => {
       const interpolatedName = loaderUtils.interpolateName(
