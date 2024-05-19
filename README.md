@@ -238,3 +238,5 @@ const digestString = loaderUtils.getHashDigest(buffer, hashType, digestType, max
 ## License
 
 MIT (http://www.opensource.org/licenses/mit-license.php)
+
+test
